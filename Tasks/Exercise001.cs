@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 // In this Kata, you will be given an array of numbers in which two numbers occur once and the rest occur only twice. 
 // Your task will be to return the sum of the numbers that occur only once.
@@ -14,7 +15,21 @@ namespace TechReturners.Tasks
     {
         public static int Singles(List<int> source)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var singles = source
+                                .GroupBy(x => x)
+                                .Where(x => !x.Skip(1).Any())
+                                .Select(x => x.Key)
+                                .ToList();
+
+                return singles.Sum();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }           
+
         }
     }
 }
